@@ -9,7 +9,7 @@ interface ITaskProps extends TaskModel {
   setTasks: React.Dispatch<React.SetStateAction<TaskModel[]>>;
 }
 
-const Task: React.FC<ITaskProps> = ({ id, text, isDone, tasks, setTasks }) => {
+const Task: React.FC<ITaskProps> = ({ _id, text, isDone, tasks, setTasks }) => {
   const [inputValue, setInputValue] = useState<string>(text);
   const [isEditionOn, setIsEditionOn] = useState<boolean>(false);
 
@@ -28,17 +28,17 @@ const Task: React.FC<ITaskProps> = ({ id, text, isDone, tasks, setTasks }) => {
   useEffect(() => {
     // Updates the tasks array with new task input value (text).
     const tasksCopy = tasks.map((task) => task);
-    const taskIndex = tasksCopy.findIndex((task) => task.id === id);
+    const taskIndex = tasksCopy.findIndex((task) => task._id === _id);
     tasksCopy[taskIndex].text = inputValue;
     setTasks(tasksCopy);
   }, [inputValue]);
 
   const handleTaskDeletion = (id: number) => {
-    setTasks(tasks.filter((task) => task.id !== id));
+    setTasks(tasks.filter((task) => task._id !== _id));
   };
   const handleTaskCompletion = (id: number) => {
     const tasksCopy = tasks.map((task) => task);
-    const taskIndex = tasksCopy.findIndex((task) => task.id === id);
+    const taskIndex = tasksCopy.findIndex((task) => task._id === _id);
     tasksCopy[taskIndex].isDone = !tasksCopy[taskIndex].isDone;
     setTasks(tasksCopy);
   };
@@ -61,13 +61,13 @@ const Task: React.FC<ITaskProps> = ({ id, text, isDone, tasks, setTasks }) => {
       )}
 
       <div className="task__icons-container">
-        <span className="edit" onClick={() => handleTaskEdition(id)}>
+        <span className="edit" onClick={() => handleTaskEdition(_id)}>
           <AiFillEdit />
         </span>
-        <span className="delete" onClick={() => handleTaskDeletion(id)}>
+        <span className="delete" onClick={() => handleTaskDeletion(_id)}>
           <AiFillDelete />
         </span>
-        <span className="done" onClick={() => handleTaskCompletion(id)}>
+        <span className="done" onClick={() => handleTaskCompletion(_id)}>
           <MdDone />
         </span>
       </div>

@@ -20,7 +20,7 @@ const Tasks: React.FC<ITasksProps> = ({ taskText, tasks, setTasks }) => {
               <Task
                 key={i}
                 text={task.text}
-                id={task.id}
+                _id={task._id}
                 isDone={task.isDone}
                 tasks={tasks}
                 setTasks={setTasks}
@@ -39,7 +39,7 @@ const Tasks: React.FC<ITasksProps> = ({ taskText, tasks, setTasks }) => {
               <Task
                 key={i}
                 text={task.text}
-                id={task.id}
+                _id={task._id}
                 isDone={task.isDone}
                 tasks={tasks}
                 setTasks={setTasks}
