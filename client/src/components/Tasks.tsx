@@ -6,7 +6,7 @@ import TaskModel from "../models/TaskModel";
 interface ITasksProps {
   taskText: string;
   tasks: TaskModel[];
-  setTasks: React.Dispatch<React.SetStateAction<TaskModel[]>>;
+  setTasks: () => Promise<void>;
 }
 
 const Tasks: React.FC<ITasksProps> = ({ taskText, tasks, setTasks }) => {

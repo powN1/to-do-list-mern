@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem;
+  padding: 0.7rem 1rem;
   border-radius: 4px;
   background-image: url("https://img.freepik.com/free-photo/crumpled-yellow-paper-background-close-up_60487-2390.jpg?size=626&ext=jpg");
   background-position: center;
@@ -16,12 +16,17 @@
   font-size: 1.1rem;
   color: #000;
   flex-grow: 1;
+  min-height: 1.9rem;
 }
+
 .task__icons-container {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-right: -0.6rem;
+}
+.task__icons-container span {
+  cursor: pointer;
 }
 .task span {
   display: flex;
@@ -29,12 +34,18 @@
   align-items: center;
   font-size: 1.2rem;
   padding: 0 0.2rem;
-  cursor: pointer;
   transition: 0.15s all ease-in-out;
 }
 .task span.date {
   font-size: 1rem;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.task span.date span {
+  font-size: 0.8rem;
 }
 .task span.edit:hover {
   color: rgb(240, 233, 38);

@@ -3,17 +3,18 @@ import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 import { MdDone } from "react-icons/md";
 import "../stylesheets/Task.css";
 import TaskModel from "../models/TaskModel";
+import { updateTask, deleteTask } from "../services/tasksService";
 
 interface ITaskProps extends TaskModel {
   tasks: TaskModel[];
-  setTasks: React.Dispatch<React.SetStateAction<TaskModel[]>>;
+  setTasks: () => Promise<void>;
 }
 
 const Task: React.FC<ITaskProps> = ({ _id, text, isDone, tasks, setTasks }) => {
   const [inputValue, setInputValue] = useState<string>(text);
   const [isEditionOn, setIsEditionOn] = useState<boolean>(false);
 
-  const handleTaskEdition = (id: number) => {
+  const handleTaskEdition = (id: string) => {
     // Switches the edition mode.
     setIsEditionOn(!isEditionOn);
   };
@@ -30,17 +31,24 @@ const Task: React.FC<ITaskProps> = ({ _id, text, isDone, tasks, setTasks }) => {
     const tasksCopy = tasks.map((task) => task);
     const taskIndex = tasksCopy.findIndex((task) => task._id === _id);
     tasksCopy[taskIndex].text = inputValue;
-    setTasks(tasksCopy);
+    const taskId = tasksCopy[taskIndex]._id;
+    updateTask({ _id: taskId, text: inputValue });
+    setTasks();
   }, [inputValue]);
 
-  const handleTaskDeletion = (id: number) => {
-    setTasks(tasks.filter((task) => task._id !== _id));
+  const handleTaskDeletion = async (id: string) => {
+    await deleteTask(id);
+    setTasks();
   };
-  const handleTaskCompletion = (id: number) => {
+  const handleTaskCompletion = async (id: string) => {
     const tasksCopy = tasks.map((task) => task);
     const taskIndex = tasksCopy.findIndex((task) => task._id === _id);
-    tasksCopy[taskIndex].isDone = !tasksCopy[taskIndex].isDone;
-    setTasks(tasksCopy);
+    const taskId = tasksCopy[taskIndex]._id;
+    await updateTask({
+      _id: taskId,
+      isDone: !isDone,
+    });
+    setTasks();
   };
 
   return (
@@ -51,11 +59,6 @@ const Task: React.FC<ITaskProps> = ({ _id, text, isDone, tasks, setTasks }) => {
           onChange={(e) => handleInputChange(e)}
           onKeyDown={(e) => handleInputEnter(e)}
         />
-      ) : isDone ? (
-        <p>
-          {text}
-          <span className="date">{new Date().toISOString().split("T")[0]}</span>
-        </p>
       ) : (
         <p>{text}</p>
       )}

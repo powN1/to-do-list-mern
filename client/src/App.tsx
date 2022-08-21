@@ -3,7 +3,7 @@ import "./App.css";
 import Search from "./components/Search";
 import Tasks from "./components/Tasks";
 import TaskModel from "./models/TaskModel";
-import { getTasks } from "./services/tasksService";
+import { getTasks, createTask } from "./services/tasksService";
 
 function App() {
   const [taskText, setTaskText] = useState<string>("");
@@ -17,16 +17,16 @@ function App() {
     const tasks = await getTasks();
     setTasks(tasks);
   };
-
+  const postTaskToServer = async () => {
+    await createTask({ text: taskText, isDone: false });
+    getTasksFromServer();
+  };
   const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (taskText === "" || taskText.length < 3) {
       return;
     } else {
-      setTasks([
-        ...tasks,
-        { _id: tasks.length, text: taskText, isDone: false },
-      ]);
+      postTaskToServer();
       setTaskText("");
     }
   };
@@ -44,7 +44,11 @@ function App() {
           submit={handleSearchSubmit}
           change={handleInputChange}
         />
-        <Tasks taskText={taskText} tasks={tasks} setTasks={setTasks} />
+        <Tasks
+          taskText={taskText}
+          tasks={tasks}
+          setTasks={getTasksFromServer}
+        />
       </div>
     </div>
   );
