@@ -1,0 +1,23 @@
+.search-task-container {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  margin-top: 2rem;
+}
+.search-task-container input {
+  padding: 10px 20px;
+  flex-grow: 1;
+  font-size: 1.2rem;
+  border: none;
+  outline: none;
+}
+.search-task-container button {
+  background-color: rgb(38, 119, 225);
+  align-self: stretch;
+  font-size: 1rem;
+  border: none;
+  flex-basis: 12%;
+  color: #fff;
+  cursor: pointer;
+}

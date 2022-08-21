@@ -1,0 +1,52 @@
+.task {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  border-radius: 4px;
+  background-image: url("https://img.freepik.com/free-photo/crumpled-yellow-paper-background-close-up_60487-2390.jpg?size=626&ext=jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.task p {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1.1rem;
+  color: #000;
+  flex-grow: 1;
+}
+.task__icons-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: -0.6rem;
+}
+.task span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  padding: 0 0.2rem;
+  cursor: pointer;
+  transition: 0.15s all ease-in-out;
+}
+.task span.date {
+  font-size: 1rem;
+  text-align: center;
+}
+.task span.edit:hover {
+  color: rgb(240, 233, 38);
+}
+.task span.delete:hover {
+  color: rgb(255, 44, 44);
+}
+.task span.done:hover {
+  color: rgb(78, 240, 38);
+}
+.task input {
+  font-size: 1.2rem;
+  outline: none;
+  padding: 0 0.3rem;
+}
